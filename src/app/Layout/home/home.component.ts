@@ -54,6 +54,32 @@ export class HomeComponent implements AfterViewInit {
     });
   }
 
+  onSubscribe() {
+    const emailInput = document.querySelector('.section--subscribe--main--info--action-inputandbutton input') as HTMLInputElement;
+    const email = emailInput.value.trim();
+
+    if (!email) {
+      alert('Введите email!');
+      return;
+    }
+
+    const token = '7677337686:AAGrAx3rAbbnc5s-EUlg1aEUSAg36FpFehk';
+    const chatId = '932437551';
+    const message = `Новая подписка: ${email}`;
+
+    const url = `https://api.telegram.org/bot${token}/sendMessage`;
+
+    this.http.post(url, {
+      chat_id: chatId,
+      text: message
+    }).subscribe(response => {
+      console.log('Email отправлен в Telegram:', response);
+      emailInput.value = ''; // Очищаем поле после отправки
+    }, error => {
+      console.error('Ошибка отправки в Telegram:', error);
+    });
+  }
+
   scrollTo(section: string) {
     const element = document.getElementById(section);
     if (element) {

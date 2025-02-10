@@ -1,5 +1,6 @@
-<header class="container">
-  <div class="logo">Relvise</div>
+<app-pop-up-cookies></app-pop-up-cookies>
+<header class="container" id="header">
+  <div (click)="scrollTo('header')" class="logo">Relvise</div>
   <nav>
     <ul>
       <li><a (click)="scrollTo('blog')" href="#blog">Blog</a></li>
@@ -340,22 +341,22 @@
       <div class="section--subscribe--main">
         <div class="section--subscribe--main--logo">
           <div class="section--subscribe--main--logo--item">
-            <img src="./assets/hooli.png" alt="">
+            <a href="https://www.linkedin.com/company/hooli12/"><img src="./assets/hooli.png" alt=""></a>
           </div>
           <div class="section--subscribe--main--logo--item">
-            <img src="./assets/lyft.png" alt="">
+            <a href="https://www.lyft.com/"><img src="./assets/lyft.png" alt=""></a>
           </div>
           <div class="section--subscribe--main--logo--item">
-            <img src="./assets/list.png" alt="">
+            <a href="https://www.svgrepo.com/svg/444182/pied-piper-hat"><img src="./assets/list.png" alt=""></a>
           </div>
           <div class="section--subscribe--main--logo--item">
-            <img src="./assets/stripe.png" alt="">
+            <a href="https://stripe.com/en-fi"><img src="./assets/stripe.png" alt=""></a>
           </div>
           <div class="section--subscribe--main--logo--item">
-            <img src="./assets/aws.png" alt="">
+            <a href="https://aws.amazon.com/ru/"><img src="./assets/aws.png" alt=""></a>
           </div>
           <div class="section--subscribe--main--logo--item">
-            <img src="./assets/nlo.png" alt="">
+            <a href="https://www.reddit.com/?rdt=47894"><img src="./assets/nlo.png" alt=""></a>
           </div>
         </div>
         <div class="section--subscribe--main--info">
@@ -366,7 +367,7 @@
             </div>
             <div class="section--subscribe--main--info--action-inputandbutton">
               <input type="text" placeholder=" Your Email">
-              <button>Subscribe</button>
+              <button (click)="onSubscribe()">Subscribe</button>
             </div>
           </div>
         </div>
@@ -441,9 +442,6 @@
             Contact Us
           </button>
 
-          <div *ngIf=" contactForm.invalid" class="form-error">
-            Пожалуйста, заполните форму корректно.
-          </div>
         </div>
       </form>
     </div>
@@ -472,14 +470,15 @@
 <footer class="footer">
   <div class="footer-content">
     <div class="footer-logo">
-      <div class="logo">Relvise</div>
+      <div class="logo" (click)="scrollTo('header')">Relvise</div>
     </div>
     <div class="footer-links">
       <a href="/privacy-policy" class="footer-link">Datenschutz</a>
       <a href="/terms-of-use" class="footer-link">Nutzungsbedingungen</a>
     </div>
     <div class="footer-contact">
-      <p class="footer-phone">+44 20 7946 0958</p>
+      <a class="footer-phone" href="tel:+442079460958">+44 20 7946 0958</a>
+
     </div>
     <div class="footer-rights">
       <p>&copy; 2025 All rights reserved.</p>

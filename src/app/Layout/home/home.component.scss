@@ -51,6 +51,7 @@ header {
     letter-spacing: 0.1px;
     text-align: left;
     margin-right: 33%;
+    cursor: pointer;
   }
 
   nav {
@@ -64,7 +65,7 @@ header {
       flex-wrap: wrap;
       flex: 1;
 
-      gap: 1.3125rem;
+      gap: 2.3125rem;
       li {
         display: flex;
         justify-content: space-between;
@@ -665,6 +666,11 @@ header {
         display: flex;
         flex-basis: 25%;
         img {
+          &:hover {
+            transform: scale(1.1);
+            transition: .3s ease-in-out;
+            filter: drop-shadow(10px 10px 10px rgba(0, 0, 0, 0.2));
+          }
 
         }
       }
@@ -722,6 +728,12 @@ header {
               text-align: center;
               background: rgb(32, 145, 249);
               cursor: pointer;
+
+              &:hover {
+                background-color: black;
+                color: white;
+                transition: .3s ease-in-out;
+              }
             }
         }
       }
@@ -1012,7 +1024,7 @@ header {
   line-height: 32px;
   letter-spacing: 0.1px;
   text-align: center;
-
+  cursor: pointer;
 
 }
 
