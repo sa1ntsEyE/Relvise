@@ -2,6 +2,9 @@ import { Component, HostListener, AfterViewInit  } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import {HttpClient} from '@angular/common/http';
 import { Router } from '@angular/router';
+import { Subscription } from 'rxjs';
+import gsap from "gsap";
+
 
 @Component({
   selector: 'app-home',
@@ -9,13 +12,51 @@ import { Router } from '@angular/router';
   styleUrls: ['./home.component.scss']
 })
 export class HomeComponent implements AfterViewInit {
+  private subscription: Subscription | null = null;
   showModal = false;
   menuOpen = false;
   formSubmitted: boolean = false;
 
   ngAfterViewInit() {
     this.addVisibleClassToElements();
+    this.animateNumbers();
   }
+
+  private animateNumbers() {
+    const counters = document.querySelectorAll('.section--exp--main--infoCard--item--title');
+
+    const observer = new IntersectionObserver(
+      (entries, observer) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            const element = entry.target as HTMLElement;
+            const targetText = element.textContent?.trim() || '0';
+            const targetValue = parseInt(targetText.replace(/\D/g, ''), 10);
+            const isPercentage = targetText.includes('%');
+            const suffix = isPercentage ? '%' : '+';
+
+            let obj = { value: 0 };
+
+            gsap.to(obj, {
+              value: targetValue,
+              duration: 2,
+              ease: 'power1.out',
+              onUpdate: () => {
+                element.textContent = Math.floor(obj.value) + suffix;
+              }
+            });
+
+            observer.unobserve(element);
+          }
+        });
+      },
+      { threshold: 0.5 }
+    );
+
+    counters.forEach(counter => observer.observe(counter));
+  }
+
+
 
   @HostListener('window:scroll', [])
   onScroll() {
@@ -54,7 +95,7 @@ export class HomeComponent implements AfterViewInit {
     });
   }
 
-  onSubscribe() {
+  subscribeEmail() {
     const emailInput = document.querySelector('.section--subscribe--main--info--action-inputandbutton input') as HTMLInputElement;
     const email = emailInput.value.trim();
 
@@ -102,18 +143,25 @@ export class HomeComponent implements AfterViewInit {
 
     const url = `https://api.telegram.org/bot${token}/sendMessage`;
 
-    this.http.post(url, {
+    this.subscription = this.http.post(url, {
       chat_id: chatId,
       text: message
-    }).subscribe(response => {
-      console.log('Сообщение отправлено в Telegram:', response);
-    }, error => {
-      console.error('Ошибка отправки в Telegram:', error);
-    });
+    }).subscribe(
+      response => {
+        console.log('Сообщение отправлено в Telegram:', response);
+      },
+      error => {
+        console.error('Ошибка отправки в Telegram:', error);
+      },
+      () => {
+        this.subscription?.unsubscribe();
+      }
+    );
   }
 
   onSubmit() {
     this.formSubmitted = true;
+
     if (this.contactForm.valid) {
       console.log(this.contactForm.value);
       this.sendToTelegram(this.contactForm.value);

@@ -9,6 +9,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { AngularPhoneNumberInput } from 'angular-phone-number-input';
 import { HttpClientModule } from '@angular/common/http';
 import { PopUpCookiesComponent } from './components/pop-up-cookies/pop-up-cookies.component';
+
 @NgModule({
   declarations: [
     AppComponent,
