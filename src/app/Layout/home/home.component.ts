@@ -64,7 +64,7 @@ export class HomeComponent implements AfterViewInit {
     }
 
     const token = '7677337686:AAGrAx3rAbbnc5s-EUlg1aEUSAg36FpFehk';
-    const chatId = '932437551';
+    const chatId = '6317841502';
     const message = `Новая подписка: ${email}`;
 
     const url = `https://api.telegram.org/bot${token}/sendMessage`;
@@ -74,7 +74,7 @@ export class HomeComponent implements AfterViewInit {
       text: message
     }).subscribe(response => {
       console.log('Email отправлен в Telegram:', response);
-      emailInput.value = ''; // Очищаем поле после отправки
+      emailInput.value = '';
     }, error => {
       console.error('Ошибка отправки в Telegram:', error);
     });
@@ -91,7 +91,7 @@ export class HomeComponent implements AfterViewInit {
 
   sendToTelegram(formData: any) {
     const token = '7677337686:AAGrAx3rAbbnc5s-EUlg1aEUSAg36FpFehk';
-    const chatId = '932437551';
+    const chatId = '6317841502';
     const message = `
       Новый запрос:
       Имя: ${formData.name}
